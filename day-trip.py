@@ -1,4 +1,5 @@
 import random
+from select import select
 
 places_to_vist_US = ["New York City", "Seattle", "Chicago", "Miami"]
 places_to_vist_SE_Asia = ["Saigon", "Singapore", "Bali", "Hanoi"]
@@ -14,6 +15,104 @@ def random_list_selector(list):
     selected_item = random.choice(list)
     return selected_item
 
+def region_select():
+    country_select = input("Hello, this is your trip advisor. To start things off would you like to travel to SE Asia or the US. ")
+    return country_select    
+
+def destination_picker(country_select):
+    if country_select == "US":
+        selected_list = places_to_vist_US
+    elif country_select == "SE Asia":
+        selected_list = places_to_vist_SE_Asia
+    choice_not_made = True
+    while choice_not_made == True:
+        random_city = random_list_selector(selected_list)
+        user_select = input(f"Ok! Would you like to visit {random_city}? Yes or No. ")
+        if user_select == "Yes":
+            print(f"You will be visiting {random_city}")
+            return random_city
+        elif user_select == "No":
+            continue
+        else:
+            print("Please enter Yes or No.")
+
+def activity_picker(country_select):
+    if country_select == "US":
+        selected_list = things_to_do_US
+    elif country_select == "SE Asia":
+        selected_list = things_to_do_SE_Asia
+    choice_not_made = True
+    while choice_not_made == True:
+        random_activity = random_list_selector(selected_list)
+        user_select = input(f"Ok! Would you like to {random_activity} for your main activity? Yes or No. ")
+        if user_select == "Yes":
+            print(f"You will be {random_activity}.")
+            return random_activity
+        elif user_select == "No":
+            continue
+        else:
+            print("Please enter Yes or No.")
+
+def transportation_picker(country_select):
+    if country_select == "US":
+        selected_list = transportation_US
+    elif country_select == "SE Asia":
+        selected_list = transportation_SE_Asia
+    choice_not_made = True
+    while choice_not_made == True:
+        random_transportation = random_list_selector(selected_list)
+        user_select = input(f"Ok! Would you like to travel by {random_transportation}? Yes or No. ")
+        if user_select == "Yes":
+            print(f"You will be travelling by {random_transportation}.")
+            return random_transportation
+        elif user_select == "No":
+            continue
+        else:
+            print("Please enter Yes or No.")
+
+def accomodation_picker(country_select):
+    if country_select == "US":
+        selected_list = places_to_stay_US
+    elif country_select == "SE Asia":
+        selected_list = places_to_stay_SE_Asia
+    choice_not_made = True
+    while choice_not_made == True:
+        random_accomodation = random_list_selector(selected_list)
+        user_select = input(f"Ok! Would you like to stay in a {random_accomodation}? Yes or No. ")
+        if user_select == "Yes":
+            print(f"You will be staying in a {random_accomodation}.")
+            return random_accomodation
+        elif user_select == "No":
+            continue
+        else:
+            print("Please enter Yes or No.")
+
+def trip_summary(city, transportation, accomodation, activity):
+    confirmation = input(f"Ok! You will travel to {city}. You will be travelling by {transportation}. You will be staying in a {accomodation}. And you will be {activity} for your main activity. Does this sound good? Yes or No. ")
+    if confirmation == "No":
+        user_choice = region_select()
+        destination_picker(user_choice)
+        activity_picker(user_choice)
+        transportation_picker(user_choice)
+        accomodation_picker(user_choice)
+        trip_summary(selected_city, selected_transportation, selected_accomodation, selected_activity)
+    elif confirmation == "Yes":
+        print(f"We hope you enjoy your trip to {selected_city}!")
+    else:
+        print("Please select Yes or No")
+        
+
+
+
+
+
+
+
+
+
+
+
+    
 #Old Code without function or random properties
     # country_select = input("Hello, this is your trip advisor. To start things off would you like to travel to SE Asia or the US. ")
     # while main_loop == True:
@@ -70,114 +169,126 @@ def random_list_selector(list):
     #             main_loop = False
     #         elif confirmation == "No":
     #             print("Ok! lets restart this process.")
-while main_loop == True:
-    country_select = input("Hello, this is your trip advisor. To start things off would you like to travel to SE Asia or the US. ")
-    if country_select == "SE Asia":
-        SE_visit = True
-        while SE_visit == True:
-            SE_visit_random = random_list_selector(places_to_vist_SE_Asia)
-            SE_visit_user_select = input(f"Ok! Would you like to visit {SE_visit_random}? Yes or No. ")
-            if SE_visit_user_select == "Yes":
-                print(f"You will be visiting {SE_visit_random}")
-                SE_visit = False
-            elif SE_visit_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        SE_activity = True
-        while SE_activity == True:
-            SE_activity_random = random_list_selector(things_to_do_SE_Asia)
-            SE_activity_user_select = input(f"Ok! Does {SE_activity_random} sound good for your main activity? Yes or No. ")
-            if SE_activity_user_select == "Yes":
-                print(f"You will be {SE_activity_random}")
-                SE_activity = False
-            elif SE_activity_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        SE_transportation = True
-        while SE_transportation == True:
-            SE_transportation_random = random_list_selector(transportation_SE_Asia)
-            SE_transportation_user_select = input(f"Ok! Does travelling by {SE_transportation_random} sound good? Yes or No. ")
-            if SE_transportation_user_select == "Yes":
-                print(f"You will be travelling by {SE_transportation_random}.")
-                SE_transportation = False
-            elif SE_transportation_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        SE_accomodation = True
-        while SE_accomodation == True:
-            SE_accomodation_random = random_list_selector(places_to_stay_SE_Asia)
-            SE_accomodation_user_select = input(f"Ok! Do you want to stay in a {SE_accomodation_random}? Yes or No. ")
-            if SE_accomodation_user_select == "Yes":
-                print(f"You will be staying in a {SE_accomodation_random}.")
-                SE_accomodation = False
-            elif SE_accomodation_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        confirmation = input(f"Ok! You will travel to {SE_visit_random}. You will be travelling by {SE_transportation_random}. You will be staying in a {SE_accomodation_random}. And you will be {SE_activity_random} for your main activity. Does this sound good? Yes or No. ")
-        if confirmation == "No":
-            print("Ok! Lets try again.")
-            continue
-        elif confirmation == "Yes":
-            print("Ok! Enjoy your trip.")
-            main_loop == False
-    elif country_select == "US":
-        US_visit = True
-        while US_visit == True:
-            US_visit_random = random_list_selector(places_to_vist_US)
-            US_visit_user_select = input(f"Ok! Would you like to visit {US_visit_random}? Yes or No. ")
-            if US_visit_user_select == "Yes":
-                print(f"You will be visiting {US_visit_random}")
-                US_visit = False
-            elif US_visit_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        US_activity = True
-        while US_activity == True:
-            US_activity_random = random_list_selector(things_to_do_US)
-            US_activity_user_select = input(f"Ok! Does {US_activity_random} sound good for your main activity? Yes or No. ")
-            if US_activity_user_select == "Yes":
-                print(f"You will be {US_activity_random}.")
-                US_activity = False
-            elif US_activity_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        US_transportation = True
-        while US_transportation == True:
-            US_transportation_random = random_list_selector(transportation_US)
-            US_transportation_user_select = input(f"Ok! Would you like to travel by {US_transportation_random}? Yes or No. ")
-            if US_transportation_user_select == "Yes":
-                print(f"You will be travelling by a {US_transportation_random}.")
-                US_transportation = False
-            elif US_transportation_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        US_accomodation = True
-        while US_accomodation == True:
-            US_accomodation_random = random_list_selector(places_to_stay_US)
-            US_accomodation_user_select = input(f"Ok! Would you like to stay in a {US_accomodation_random}? Yes or No. ")
-            if US_accomodation_user_select == "Yes":
-                print(f"You will be staying in a {US_accomodation_random}.")
-                US_accomodation = False
-            elif US_accomodation_user_select == "No":
-                continue
-            else:
-                print("Please enter Yes or No.")
-        confirmation = input(f"Ok! You will travel to {US_visit_random}. You will be travelling by {US_transportation_random}. You will be staying in a {US_accomodation_random}. And you will be {US_activity_random} for your main activity. Does this sound good? Yes or No. ")
-        if confirmation == "No":
-            print("Ok! Lets try again.")
-            continue
-        elif confirmation == "Yes":
-            print("Ok! Enjoy your trip.")
-            main_loop == False
-    else:
-        print("Please select SE Asia or US.")
+
+#Code structured without functions
+    # while main_loop == True:
+    #     country_select = input("Hello, this is your trip advisor. To start things off would you like to travel to SE Asia or the US. ")
+    #     if country_select == "SE Asia":
+    #         SE_visit = True
+    #         while SE_visit == True:
+    #             SE_visit_random = random_list_selector(places_to_vist_SE_Asia)
+    #             SE_visit_user_select = input(f"Ok! Would you like to visit {SE_visit_random}? Yes or No. ")
+    #             if SE_visit_user_select == "Yes":
+    #                 print(f"You will be visiting {SE_visit_random}")
+    #                 SE_visit = False
+    #             elif SE_visit_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         SE_activity = True
+    #         while SE_activity == True:
+    #             SE_activity_random = random_list_selector(things_to_do_SE_Asia)
+    #             SE_activity_user_select = input(f"Ok! Does {SE_activity_random} sound good for your main activity? Yes or No. ")
+    #             if SE_activity_user_select == "Yes":
+    #                 print(f"You will be {SE_activity_random}")
+    #                 SE_activity = False
+    #             elif SE_activity_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         SE_transportation = True
+    #         while SE_transportation == True:
+    #             SE_transportation_random = random_list_selector(transportation_SE_Asia)
+    #             SE_transportation_user_select = input(f"Ok! Does travelling by {SE_transportation_random} sound good? Yes or No. ")
+    #             if SE_transportation_user_select == "Yes":
+    #                 print(f"You will be travelling by {SE_transportation_random}.")
+    #                 SE_transportation = False
+    #             elif SE_transportation_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         SE_accomodation = True
+    #         while SE_accomodation == True:
+    #             SE_accomodation_random = random_list_selector(places_to_stay_SE_Asia)
+    #             SE_accomodation_user_select = input(f"Ok! Do you want to stay in a {SE_accomodation_random}? Yes or No. ")
+    #             if SE_accomodation_user_select == "Yes":
+    #                 print(f"You will be staying in a {SE_accomodation_random}.")
+    #                 SE_accomodation = False
+    #             elif SE_accomodation_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         confirmation = input(f"Ok! You will travel to {SE_visit_random}. You will be travelling by {SE_transportation_random}. You will be staying in a {SE_accomodation_random}. And you will be {SE_activity_random} for your main activity. Does this sound good? Yes or No. ")
+    #         if confirmation == "No":
+    #             print("Ok! Lets try again.")
+    #             continue
+    #         elif confirmation == "Yes":
+    #             print("Ok! Enjoy your trip.")
+    #             main_loop == False
+    #     elif country_select == "US":
+    #         US_visit = True
+    #         while US_visit == True:
+    #             US_visit_random = random_list_selector(places_to_vist_US)
+    #             US_visit_user_select = input(f"Ok! Would you like to visit {US_visit_random}? Yes or No. ")
+    #             if US_visit_user_select == "Yes":
+    #                 print(f"You will be visiting {US_visit_random}")
+    #                 US_visit = False
+    #             elif US_visit_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         US_activity = True
+    #         while US_activity == True:
+    #             US_activity_random = random_list_selector(things_to_do_US)
+    #             US_activity_user_select = input(f"Ok! Does {US_activity_random} sound good for your main activity? Yes or No. ")
+    #             if US_activity_user_select == "Yes":
+    #                 print(f"You will be {US_activity_random}.")
+    #                 US_activity = False
+    #             elif US_activity_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         US_transportation = True
+    #         while US_transportation == True:
+    #             US_transportation_random = random_list_selector(transportation_US)
+    #             US_transportation_user_select = input(f"Ok! Would you like to travel by {US_transportation_random}? Yes or No. ")
+    #             if US_transportation_user_select == "Yes":
+    #                 print(f"You will be travelling by a {US_transportation_random}.")
+    #                 US_transportation = False
+    #             elif US_transportation_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         US_accomodation = True
+    #         while US_accomodation == True:
+    #             US_accomodation_random = random_list_selector(places_to_stay_US)
+    #             US_accomodation_user_select = input(f"Ok! Would you like to stay in a {US_accomodation_random}? Yes or No. ")
+    #             if US_accomodation_user_select == "Yes":
+    #                 print(f"You will be staying in a {US_accomodation_random}.")
+    #                 US_accomodation = False
+    #             elif US_accomodation_user_select == "No":
+    #                 continue
+    #             else:
+    #                 print("Please enter Yes or No.")
+    #         confirmation = input(f"Ok! You will travel to {US_visit_random}. You will be travelling by {US_transportation_random}. You will be staying in a {US_accomodation_random}. And you will be {US_activity_random} for your main activity. Does this sound good? Yes or No. ")
+    #         if confirmation == "No":
+    #             print("Ok! Lets try again.")
+    #             continue
+    #         elif confirmation == "Yes":
+    #             print("Ok! Enjoy your trip.")
+    #             main_loop == False
+    #     else:
+    #         print("Please select SE Asia or US.")
+
+
+
+user_choice = region_select()
+selected_city = destination_picker(user_choice)
+selected_activity = activity_picker(user_choice)
+selected_transportation = transportation_picker(user_choice)
+selected_accomodation = accomodation_picker(user_choice)
+trip_summary(selected_city, selected_transportation, selected_accomodation, selected_activity)
+
 
 
     
